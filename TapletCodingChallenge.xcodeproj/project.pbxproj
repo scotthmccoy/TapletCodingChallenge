@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		6CEA2D4A1A97B08A00410F21 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CEA2D491A97B08A00410F21 /* main.m */; };
 		6CEA2D4D1A97B08A00410F21 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CEA2D4C1A97B08A00410F21 /* AppDelegate.m */; };
-		6CEA2D501A97B08A00410F21 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CEA2D4F1A97B08A00410F21 /* ViewController.m */; };
+		6CEA2D501A97B08A00410F21 /* VideoPickerCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CEA2D4F1A97B08A00410F21 /* VideoPickerCollectionViewController.m */; };
 		6CEA2D531A97B08A00410F21 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6CEA2D511A97B08A00410F21 /* Main.storyboard */; };
 		6CEA2D551A97B08A00410F21 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6CEA2D541A97B08A00410F21 /* Images.xcassets */; };
 		6CEA2D581A97B08A00410F21 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6CEA2D561A97B08A00410F21 /* LaunchScreen.xib */; };
@@ -32,8 +32,8 @@
 		6CEA2D491A97B08A00410F21 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		6CEA2D4B1A97B08A00410F21 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		6CEA2D4C1A97B08A00410F21 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		6CEA2D4E1A97B08A00410F21 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		6CEA2D4F1A97B08A00410F21 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		6CEA2D4E1A97B08A00410F21 /* VideoPickerCollectionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VideoPickerCollectionViewController.h; sourceTree = "<group>"; };
+		6CEA2D4F1A97B08A00410F21 /* VideoPickerCollectionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VideoPickerCollectionViewController.m; sourceTree = "<group>"; };
 		6CEA2D521A97B08A00410F21 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		6CEA2D541A97B08A00410F21 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		6CEA2D571A97B08A00410F21 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -83,8 +83,8 @@
 			children = (
 				6CEA2D4B1A97B08A00410F21 /* AppDelegate.h */,
 				6CEA2D4C1A97B08A00410F21 /* AppDelegate.m */,
-				6CEA2D4E1A97B08A00410F21 /* ViewController.h */,
-				6CEA2D4F1A97B08A00410F21 /* ViewController.m */,
+				6CEA2D4E1A97B08A00410F21 /* VideoPickerCollectionViewController.h */,
+				6CEA2D4F1A97B08A00410F21 /* VideoPickerCollectionViewController.m */,
 				6CEA2D511A97B08A00410F21 /* Main.storyboard */,
 				6CEA2D541A97B08A00410F21 /* Images.xcassets */,
 				6CEA2D561A97B08A00410F21 /* LaunchScreen.xib */,
@@ -219,7 +219,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6CEA2D501A97B08A00410F21 /* ViewController.m in Sources */,
+				6CEA2D501A97B08A00410F21 /* VideoPickerCollectionViewController.m in Sources */,
 				6CEA2D4D1A97B08A00410F21 /* AppDelegate.m in Sources */,
 				6CEA2D4A1A97B08A00410F21 /* main.m in Sources */,
 			);
@@ -414,6 +414,7 @@
 				6CEA2D691A97B08A00410F21 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		6CEA2D6A1A97B08A00410F21 /* Build configuration list for PBXNativeTarget "TapletCodingChallengeTests" */ = {
 			isa = XCConfigurationList;
@@ -422,6 +423,7 @@
 				6CEA2D6C1A97B08A00410F21 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
