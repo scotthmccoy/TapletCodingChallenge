@@ -1,9 +1,25 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="bSm-aS-NtG">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="hop-BB-Z5Q">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
     <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="wZ7-SZ-NLN">
+            <objects>
+                <navigationController id="hop-BB-Z5Q" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="N5q-QD-boh">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="bSm-aS-NtG" kind="relationship" relationship="rootViewController" id="Bgg-hA-K6l"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0ws-0a-8pa" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2926" y="-778"/>
+        </scene>
         <!--Video Picker Collection View Controller-->
         <scene sceneID="Qlp-Vm-Vwh">
             <objects>
@@ -33,10 +49,11 @@
                             <outlet property="delegate" destination="bSm-aS-NtG" id="YbY-oX-y5d"/>
                         </connections>
                     </collectionView>
+                    <navigationItem key="navigationItem" id="h8l-Lg-u1W"/>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TpE-Nb-JkJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="264" y="97"/>
+            <point key="canvasLocation" x="-2222" y="-778"/>
         </scene>
     </scenes>
 </document>

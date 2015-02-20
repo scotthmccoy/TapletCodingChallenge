@@ -9,7 +9,13 @@
 //Header
 #import "VideoPickerCollectionViewController.h"
 
+//Other
 #import <AssetsLibrary/AssetsLibrary.h>
+@import MediaPlayer;
+
+//Constants
+NSString* cellIdentifier = @"Cell";
+
 
 @interface VideoPickerCollectionViewController ()
 
@@ -27,7 +33,7 @@
     self.assetLibrary = [[ALAssetsLibrary alloc] init];
     
     //Set up CollectionView
-    [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"Cell"];
+    [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:cellIdentifier];
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
     
@@ -105,7 +111,7 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     
-    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
+    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
     
     ALAsset* asset = [self.videoArray objectAtIndex:indexPath.row];
     
@@ -119,6 +125,11 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     DebugLog(@"Touched Cell = [%lu]", indexPath.row);
+    
+    ALAsset* asset = [self.videoArray objectAtIndex:indexPath.row];
+    
+    MPMoviePlayerViewController *moviePlayerVC = [[MPMoviePlayerViewController alloc] initWithContentURL:[[asset defaultRepresentation] url]];
+    [self.navigationController pushViewController:moviePlayerVC animated:YES];
 }
 
 
