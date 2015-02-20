@@ -40,6 +40,7 @@
 		6CEA2D5D1A97B08A00410F21 /* TapletCodingChallengeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TapletCodingChallengeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6CEA2D621A97B08A00410F21 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6CEA2D631A97B08A00410F21 /* TapletCodingChallengeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TapletCodingChallengeTests.m; sourceTree = "<group>"; };
+		6CEA2D6E1A97F4AE00410F21 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +89,7 @@
 				6CEA2D511A97B08A00410F21 /* Main.storyboard */,
 				6CEA2D541A97B08A00410F21 /* Images.xcassets */,
 				6CEA2D561A97B08A00410F21 /* LaunchScreen.xib */,
+				6CEA2D6E1A97F4AE00410F21 /* PrefixHeader.pch */,
 				6CEA2D471A97B08A00410F21 /* Supporting Files */,
 			);
 			path = TapletCodingChallenge;
@@ -345,6 +347,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = TapletCodingChallenge/PrefixHeader.pch;
 				INFOPLIST_FILE = TapletCodingChallenge/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -355,6 +359,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = TapletCodingChallenge/PrefixHeader.pch;
 				INFOPLIST_FILE = TapletCodingChallenge/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";

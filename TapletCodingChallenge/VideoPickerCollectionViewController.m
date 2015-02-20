@@ -68,11 +68,11 @@
             //Get videos
             self.videoArray = [self getContentFrom:group withAssetFilter:[ALAssetsFilter allVideos]];
             [self.collectionView reloadData];
-            NSLog(@"self.videoArray = [%@]", self.videoArray);
+            DebugLog(@"self.videoArray = [%@]", self.videoArray);
         }
         
     } failureBlock:^(NSError *error) {
-        NSLog(@"Error Description %@",[error description]);
+        DebugLog(@"Error Description %@",[error description]);
     }];
 }
 
@@ -118,7 +118,7 @@
 #pragma mark - UICollectionView
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    NSLog(@"Touched Cell = [%lu]", indexPath.row);
+    DebugLog(@"Touched Cell = [%lu]", indexPath.row);
 }
 
 
