@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface VideoPickerCollectionViewController : UICollectionViewController
+@interface VideoPickerCollectionViewController : UICollectionViewController <UIAlertViewDelegate>
 
 
 @end

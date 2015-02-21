@@ -56,16 +56,26 @@ NSString* segueIdendifier = @"showVideo";
     
     //Prompt for
     
-    if(![ALAssetsLibrary authorizationStatus])
-    {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Permission Denied" message:@"Please allow the application to access your photo and videos in settings panel of your device" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles: nil];
-        [alertView show];
-        
-        //Clear the array
-        self.videoArray = [NSMutableArray array];
-        
-        return;
+    switch([ALAssetsLibrary authorizationStatus]) {
+        case ALAuthorizationStatusRestricted:
+        case ALAuthorizationStatusDenied:
+        {
+            [self cameraRollAccessDeniedAlertView];
+            
+            //Clear the array
+            self.videoArray = [NSMutableArray array];
+            
+            return;
+        }
+            
+        case ALAuthorizationStatusNotDetermined: // User has not yet made a choice with regards to this application
+        case ALAuthorizationStatusAuthorized:
+        default:
+            break;
     }
+
+    
+
     
     
     //Since we're using ALAAssetsGroupAll, this will get called once with a valid group and once with a nil (presumably the nil is a sentinel)
@@ -75,12 +85,23 @@ NSString* segueIdendifier = @"showVideo";
         {
             //Get videos
             self.videoArray = [self getContentFrom:group withAssetFilter:[ALAssetsFilter allVideos]];
+            
+            if ([self.videoArray count] == 0) {
+                DebugLog(@"No Videos");
+                //TODO: Prompt user to record a new video
+            }
+            
             [self.collectionView reloadData];
             //DebugLog(@"self.videoArray = [%@]", self.videoArray);
         }
         
     } failureBlock:^(NSError *error) {
         DebugLog(@"Error Description %@",[error description]);
+        
+        //TODO: Check this code
+        if ([error code] == -3311) {
+            [self cameraRollAccessDeniedAlertView];
+        }
     }];
 }
 
@@ -125,7 +146,7 @@ NSString* segueIdendifier = @"showVideo";
 #pragma mark - UICollectionView
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    DebugLog(@"Touched Cell = [%lu]", indexPath.row);
+    DebugLog(@"Touched Cell = [%i]", indexPath.row);
     
     //Get the asset and push the next VC
     ALAsset* asset = [self.videoArray objectAtIndex:indexPath.row];
@@ -145,7 +166,23 @@ NSString* segueIdendifier = @"showVideo";
     }
 }
 
+#pragma mark - Camera Roll Access Prompt
+- (void) cameraRollAccessDeniedAlertView {
+    UIAlertView *av = [[UIAlertView alloc] initWithTitle:@"Can't Access Camera Roll" message:@"Would you like to go to the Settings App to re-enable camera roll access?" delegate:self cancelButtonTitle:@"No Thanks" otherButtonTitles:@"Yes, Please!", nil];
+    [av show];
+}
 
+#pragma mark - UIAlertViewDelegate methods
+// Called when a button is clicked. The view will be automatically dismissed after this call returns
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    DebugLog(@"ButtonIndex: [%i]", buttonIndex);
+    
+    if (buttonIndex != 1)
+        return;
+    
+    //TODO: open the Settings App
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
+}
 
 
 @end
