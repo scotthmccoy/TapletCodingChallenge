@@ -14,21 +14,25 @@
 
 @interface VideoPlayerViewController ()
 @property MPMoviePlayerController* player;
+@property UIBarButtonItem* nextButton;
+@property NSMutableArray* imagesSaved;
 @end
 
 @implementation VideoPlayerViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    
 
-    
-    
-    //Add Next Button
-    UIBarButtonItem *nextButton = [[UIBarButtonItem alloc] initWithTitle:@"Next" style:UIBarButtonItemStylePlain target:self action:@selector(showImages:)];
-    self.navigationItem.rightBarButtonItem = nextButton;
+    //Set up NextButton
+    self.nextButton = [[UIBarButtonItem alloc] initWithTitle:@"Next" style:UIBarButtonItemStylePlain target:self action:@selector(showImages:)];
+    self.navigationItem.rightBarButtonItem = self.nextButton;
 
+    //Set up array to contain pulled images
+    self.imagesSaved = [[NSMutableArray alloc] init];
+    
+    //Listen for MPMoviePlayerThumbnailImageRequestDidFinishNotification
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(observer_MPMoviePlayerThumbnailImageRequestDidFinishNotification:) name:MPMoviePlayerThumbnailImageRequestDidFinishNotification object:nil];
+    
     //Create Video Player
     NSURL* contentURL = [[self.selectedAsset defaultRepresentation] url];
     self.player = [[MPMoviePlayerController alloc] initWithContentURL: contentURL];
@@ -36,25 +40,6 @@
     UIView* playerView = self.player.view;
     [playerView setFrame: self.view.bounds];  // player's frame must match parent's
     [self.view addSubview: playerView];
-    
-
-    ////////////
-    //AutoLayout
-    ////////////
-    
-//    UIView* parent = self.view;
-//    parent.translatesAutoresizingMaskIntoConstraints = NO;
-//    //playerView.translatesAutoresizingMaskIntoConstraints = NO;
-//    
-//    
-//    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(playerView, parent);
-//    
-//    [self.view addConstraints: [NSLayoutConstraint
-//                                 constraintsWithVisualFormat:@"|[playerView(parent)]|"
-//                                 options:NSLayoutFormatAlignAllBaseline metrics:nil
-//                                 views:viewsDictionary]];
-    
-    
 }
 
 - (void) viewDidAppear:(BOOL)animated {
@@ -78,10 +63,45 @@
 }
 
 
-#pragma mark - Button Callbacks 
-
+#pragma mark - Button Callbacks
 - (void) showImages:(id) sender {
-    DebugLogWhereAmI();
+    if ([self.imagesSaved count] == 0) {
+        UIAlertView* av = [[UIAlertView alloc] initWithTitle:@"No Images Selected" message:@"Tap the screen to select some images!" delegate:nil cancelButtonTitle:@"Ok!" otherButtonTitles:nil];
+        [av show];
+    }
 }
+
+
+- (void) touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+    //Request a thumbnail
+    NSNumber* currentPlayTime = [NSNumber numberWithDouble:self.player.currentPlaybackTime];
+    NSArray* currentPlayTimeArray = [NSArray arrayWithObject:currentPlayTime];
+    [self.player requestThumbnailImagesAtTimes:currentPlayTimeArray timeOption:MPMovieTimeOptionExact];
+    
+    //Call Super
+    [super touchesEnded:touches withEvent:event];
+}
+
+#pragma mark - Observers
+- (void) observer_MPMoviePlayerThumbnailImageRequestDidFinishNotification:(id)notification {
+    DebugLogWhereAmI();
+    NSDictionary* userInfo = [notification userInfo];
+    UIImage* img = [userInfo objectForKey:MPMoviePlayerThumbnailImageKey];
+    
+    //Queue up addObject calls to imagesSaved since it's not thread safe
+    dispatch_async(dispatch_get_main_queue(), ^(void){
+        DebugLogWhereAmI();
+        [self.imagesSaved addObject:img];
+        self.nextButton.title = [NSString stringWithFormat:@"Next (%i)", self.imagesSaved.count];
+        
+        [UIView animateWithDuration:2.0 animations:^{
+            self.nextButton.tintColor = [UIColor blueColor];
+        } completion:NULL];
+        
+    });
+    
+}
+
+
 
 @end
