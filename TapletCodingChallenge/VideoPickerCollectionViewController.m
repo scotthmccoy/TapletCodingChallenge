@@ -54,10 +54,10 @@ NSString* segueIdendifier = @"showVideo";
 #pragma mark - Get Assets
 - (void) getVideosAndReload {
     
-    if([ALAssetsLibrary authorizationStatus])
+    //Prompt for
+    
+    if(![ALAssetsLibrary authorizationStatus])
     {
-        //Library Access code goes here
-    } else {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Permission Denied" message:@"Please allow the application to access your photo and videos in settings panel of your device" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles: nil];
         [alertView show];
         
