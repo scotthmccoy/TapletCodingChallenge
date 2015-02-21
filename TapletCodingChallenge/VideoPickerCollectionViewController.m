@@ -88,7 +88,10 @@ NSString* segueIdendifier = @"showVideo";
             
             if ([self.videoArray count] == 0) {
                 DebugLog(@"No Videos");
-                //TODO: Prompt user to record a new video
+                UIAlertView *av = [[UIAlertView alloc] initWithTitle:@"You don't have any videos" message:@"You should probably record some!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                [av show];
+                
+                //TODO: Have this run a tutorial to record videos
             }
             
             [self.collectionView reloadData];
