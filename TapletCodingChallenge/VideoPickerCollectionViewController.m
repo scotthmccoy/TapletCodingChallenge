@@ -12,6 +12,7 @@
 //Other
 #import <AssetsLibrary/AssetsLibrary.h>
 #import "VideoPlayerViewController.h"
+#import "CollectionViewCellWithImage.h"
 
 //Constants
 static NSString* cellIdentifier = @"Cell";
@@ -35,7 +36,7 @@ static NSString* segueIdendifier = @"showVideo";
     self.assetLibrary = [[ALAssetsLibrary alloc] init];
     
     //Set up CollectionView
-    [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:cellIdentifier];
+    [self.collectionView registerClass:[CollectionViewCellWithImage class] forCellWithReuseIdentifier:cellIdentifier];
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
     
@@ -136,17 +137,16 @@ static NSString* segueIdendifier = @"showVideo";
 // The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
+    CollectionViewCellWithImage *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
     
     ALAsset* asset = [self.videoArray objectAtIndex:indexPath.row];
-    
     UIImage* thumbnail = [UIImage imageWithCGImage:asset.thumbnail];
-    cell.backgroundColor = [UIColor colorWithPatternImage:thumbnail];
+    cell.imageView.image = thumbnail;
     return cell;
     
 }
 
-#pragma mark - UICollectionView
+#pragma mark - <UICollectionViewDelegate>
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     DebugLog(@"Touched Cell = [%i]", indexPath.row);
@@ -155,6 +155,13 @@ static NSString* segueIdendifier = @"showVideo";
     ALAsset* asset = [self.videoArray objectAtIndex:indexPath.row];
     self.selectedAsset = asset;
     [self performSegueWithIdentifier:segueIdendifier sender:self];
+}
+
+#pragma mark - <UICollectionViewDelegateFlowLayout>
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    CGFloat length = fmin(self.view.bounds.size.width, self.view.bounds.size.height) / 3;
+    return CGSizeMake(length, length);
 }
 
 
@@ -185,6 +192,8 @@ static NSString* segueIdendifier = @"showVideo";
     //TODO: open the Settings App
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
 }
+
+
 
 
 @end
