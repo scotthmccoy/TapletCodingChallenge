@@ -11,16 +11,18 @@
 
 //Other
 #import <AssetsLibrary/AssetsLibrary.h>
-@import MediaPlayer;
+#import "VideoPlayerViewController.h"
 
 //Constants
 NSString* cellIdentifier = @"Cell";
+NSString* segueIdendifier = @"showVideo";
 
 
 @interface VideoPickerCollectionViewController ()
 
 @property ALAssetsLibrary* assetLibrary;
 @property NSMutableArray* videoArray; //Array of ALAsset objects
+@property ALAsset* selectedAsset;
 @end
 
 @implementation VideoPickerCollectionViewController
@@ -74,7 +76,7 @@ NSString* cellIdentifier = @"Cell";
             //Get videos
             self.videoArray = [self getContentFrom:group withAssetFilter:[ALAssetsFilter allVideos]];
             [self.collectionView reloadData];
-            DebugLog(@"self.videoArray = [%@]", self.videoArray);
+            //DebugLog(@"self.videoArray = [%@]", self.videoArray);
         }
         
     } failureBlock:^(NSError *error) {
@@ -83,7 +85,7 @@ NSString* cellIdentifier = @"Cell";
 }
 
 
--(NSMutableArray *) getContentFrom:(ALAssetsGroup *) group withAssetFilter:(ALAssetsFilter *)filter
+- (NSMutableArray *) getContentFrom:(ALAssetsGroup *) group withAssetFilter:(ALAssetsFilter *)filter
 {
     NSMutableArray *contentArray = [NSMutableArray array];
     [group setAssetsFilter:filter];
@@ -110,7 +112,6 @@ NSString* cellIdentifier = @"Cell";
 // The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
     
     ALAsset* asset = [self.videoArray objectAtIndex:indexPath.row];
@@ -126,12 +127,23 @@ NSString* cellIdentifier = @"Cell";
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     DebugLog(@"Touched Cell = [%lu]", indexPath.row);
     
+    //Get the asset and push the next VC
     ALAsset* asset = [self.videoArray objectAtIndex:indexPath.row];
-    
-    MPMoviePlayerViewController *moviePlayerVC = [[MPMoviePlayerViewController alloc] initWithContentURL:[[asset defaultRepresentation] url]];
-    [self.navigationController pushViewController:moviePlayerVC animated:YES];
+    self.selectedAsset = asset;
+    [self performSegueWithIdentifier:segueIdendifier sender:self];
 }
 
+
+#pragma mark - Segue
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    // Make sure your segue name in storyboard is the same as this line
+    if ([[segue identifier] isEqualToString:segueIdendifier])
+    {
+        VideoPlayerViewController* vc = (VideoPlayerViewController*)segue.destinationViewController;
+        vc.selectedAsset = self.selectedAsset;
+    }
+}
 
 
 

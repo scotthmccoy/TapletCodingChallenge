@@ -14,6 +14,8 @@
 		6CEA2D551A97B08A00410F21 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6CEA2D541A97B08A00410F21 /* Images.xcassets */; };
 		6CEA2D581A97B08A00410F21 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6CEA2D561A97B08A00410F21 /* LaunchScreen.xib */; };
 		6CEA2D641A97B08A00410F21 /* TapletCodingChallengeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CEA2D631A97B08A00410F21 /* TapletCodingChallengeTests.m */; };
+		6CEA2D701A98026300410F21 /* devnotes.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6CEA2D6F1A98026300410F21 /* devnotes.txt */; };
+		6CEA2D731A98042400410F21 /* VideoPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CEA2D721A98042400410F21 /* VideoPlayerViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,6 +43,9 @@
 		6CEA2D621A97B08A00410F21 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6CEA2D631A97B08A00410F21 /* TapletCodingChallengeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TapletCodingChallengeTests.m; sourceTree = "<group>"; };
 		6CEA2D6E1A97F4AE00410F21 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		6CEA2D6F1A98026300410F21 /* devnotes.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = devnotes.txt; sourceTree = "<group>"; };
+		6CEA2D711A98042400410F21 /* VideoPlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoPlayerViewController.h; sourceTree = "<group>"; };
+		6CEA2D721A98042400410F21 /* VideoPlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoPlayerViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,10 +87,13 @@
 		6CEA2D461A97B08A00410F21 /* TapletCodingChallenge */ = {
 			isa = PBXGroup;
 			children = (
+				6CEA2D6F1A98026300410F21 /* devnotes.txt */,
 				6CEA2D4B1A97B08A00410F21 /* AppDelegate.h */,
 				6CEA2D4C1A97B08A00410F21 /* AppDelegate.m */,
 				6CEA2D4E1A97B08A00410F21 /* VideoPickerCollectionViewController.h */,
 				6CEA2D4F1A97B08A00410F21 /* VideoPickerCollectionViewController.m */,
+				6CEA2D711A98042400410F21 /* VideoPlayerViewController.h */,
+				6CEA2D721A98042400410F21 /* VideoPlayerViewController.m */,
 				6CEA2D511A97B08A00410F21 /* Main.storyboard */,
 				6CEA2D541A97B08A00410F21 /* Images.xcassets */,
 				6CEA2D561A97B08A00410F21 /* LaunchScreen.xib */,
@@ -203,6 +211,7 @@
 			files = (
 				6CEA2D531A97B08A00410F21 /* Main.storyboard in Resources */,
 				6CEA2D581A97B08A00410F21 /* LaunchScreen.xib in Resources */,
+				6CEA2D701A98026300410F21 /* devnotes.txt in Resources */,
 				6CEA2D551A97B08A00410F21 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -222,6 +231,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6CEA2D501A97B08A00410F21 /* VideoPickerCollectionViewController.m in Sources */,
+				6CEA2D731A98042400410F21 /* VideoPlayerViewController.m in Sources */,
 				6CEA2D4D1A97B08A00410F21 /* AppDelegate.m in Sources */,
 				6CEA2D4A1A97B08A00410F21 /* main.m in Sources */,
 			);
