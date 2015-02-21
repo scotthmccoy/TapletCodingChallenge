@@ -28,13 +28,13 @@ static NSString * const reuseIdentifier = @"Cell";
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    self.title = @"Choose an Image";
+    
     // Register cell classes
     [self.collectionView registerClass:[CollectionViewCellWithImage class] forCellWithReuseIdentifier:reuseIdentifier];
 }
 
-//- (void) viewDidAppear:(BOOL)animated {
-//    [self.collectionView reloadData];
-//}
+//TODO: Have collectionView change cell sizes after rotation
 
 
 #pragma mark <UICollectionViewDataSource>

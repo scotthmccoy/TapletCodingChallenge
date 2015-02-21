@@ -30,7 +30,8 @@ static NSString* segueIdendifier = @"showVideo";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+
+    self.title = @"Choose a Video";
     
     //Set up asset Library
     self.assetLibrary = [[ALAssetsLibrary alloc] init];
@@ -39,7 +40,6 @@ static NSString* segueIdendifier = @"showVideo";
     [self.collectionView registerClass:[CollectionViewCellWithImage class] forCellWithReuseIdentifier:cellIdentifier];
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
-    
     self.collectionView.backgroundColor = [UIColor whiteColor];
 }
 

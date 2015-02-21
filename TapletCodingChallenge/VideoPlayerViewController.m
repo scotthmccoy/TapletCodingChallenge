@@ -49,6 +49,12 @@ static NSString* segueIdendifier = @"showExtractedImages";
     [self.view addSubview: playerView];
 }
 
+- (void) viewWillAppear:(BOOL)animated {
+    //Have the player match the view, in case the user rotated their device while deeper
+    //in the VC stack
+    self.player.view.frame = self.view.bounds;
+}
+
 - (void) viewDidAppear:(BOOL)animated {
     [self.player play];
 }
@@ -79,6 +85,7 @@ static NSString* segueIdendifier = @"showExtractedImages";
         return;
     }
     
+    [self.player stop];
     [self performSegueWithIdentifier:segueIdendifier sender:self];
 }
 
