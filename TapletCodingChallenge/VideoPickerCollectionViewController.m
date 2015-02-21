@@ -55,7 +55,7 @@ static NSString* segueIdendifier = @"showVideo";
 #pragma mark - Get Assets
 - (void) getVideosAndReload {
     
-    //Prompt for
+    DebugLogWhereAmI();
     
     switch([ALAssetsLibrary authorizationStatus]) {
         case ALAuthorizationStatusRestricted:
@@ -86,17 +86,6 @@ static NSString* segueIdendifier = @"showVideo";
         {
             //Get videos
             self.videoArray = [self getContentFrom:group withAssetFilter:[ALAssetsFilter allVideos]];
-            
-            if ([self.videoArray count] == 0) {
-                DebugLog(@"No Videos");
-                UIAlertView *av = [[UIAlertView alloc] initWithTitle:@"You don't have any videos" message:@"You should probably record some!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-                [av show];
-                
-                //TODO: Have this run a tutorial to record videos
-            }
-            
-            [self.collectionView reloadData];
-            //DebugLog(@"self.videoArray = [%@]", self.videoArray);
         }
         
     } failureBlock:^(NSError *error) {
@@ -107,6 +96,25 @@ static NSString* segueIdendifier = @"showVideo";
             [self cameraRollAccessDeniedAlertView];
         }
     }];
+    
+
+    
+    
+    dispatch_async(dispatch_get_main_queue(), ^(void) {
+        DebugLogWhereAmI();
+        if ([self.videoArray count] == 0) {
+            DebugLog(@"No Videos");
+            UIAlertView *av = [[UIAlertView alloc] initWithTitle:@"You don't have any videos" message:@"You should probably record some!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [av show];
+            
+            //TODO: Have this run a tutorial to record videos
+        }
+        
+        
+        [self.collectionView reloadData];
+    });
+    
+
 }
 
 
