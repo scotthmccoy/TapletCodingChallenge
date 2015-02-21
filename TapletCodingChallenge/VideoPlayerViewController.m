@@ -105,13 +105,19 @@ static NSString* segueIdendifier = @"showExtractedImages";
 
 #pragma mark - Observers
 - (void) observer_MPMoviePlayerThumbnailImageRequestDidFinishNotification:(id)notification {
-    DebugLogWhereAmI();
+    //DebugLogWhereAmI();
     NSDictionary* userInfo = [notification userInfo];
     UIImage* img = [userInfo objectForKey:MPMoviePlayerThumbnailImageKey];
     
     //Queue up addObject calls to imagesSaved since it's not thread safe
     dispatch_async(dispatch_get_main_queue(), ^(void){
-        DebugLogWhereAmI();
+
+        //Check if we're the topmost VC. Otherwise, we don't want to mutate extractedImages.
+        if ([self.navigationController.viewControllers lastObject] != self)
+        {
+            DebugLog(@"Notification received while not top VC. Bailing.");
+        }
+
         [self.extractedImages addObject:img];
         self.nextButton.title = [NSString stringWithFormat:@"Next (%i)", self.extractedImages.count];
         

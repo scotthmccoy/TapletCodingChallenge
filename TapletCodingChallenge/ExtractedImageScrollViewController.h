@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ExtractedImageScrollViewController : UIScrollViewController
+@interface ExtractedImageScrollViewController : UIViewController
 
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+
+@property NSArray* extractedImages;
+@property NSNumber* imageIndex;
 @end

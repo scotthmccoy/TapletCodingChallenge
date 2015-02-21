@@ -11,9 +11,14 @@
 
 //Other
 #import "CollectionViewCellWithImage.h"
+#import "ExtractedImageScrollViewController.h"
+
+//Constants
+static NSString* segueIdendifier = @"showSingleImage";
+
 
 @interface ExtractedImagesCollectionViewController ()
-
+@property NSNumber* imageIndex;
 @end
 
 @implementation ExtractedImagesCollectionViewController
@@ -26,6 +31,10 @@ static NSString * const reuseIdentifier = @"Cell";
     // Register cell classes
     [self.collectionView registerClass:[CollectionViewCellWithImage class] forCellWithReuseIdentifier:reuseIdentifier];
 }
+
+//- (void) viewDidAppear:(BOOL)animated {
+//    [self.collectionView reloadData];
+//}
 
 
 #pragma mark <UICollectionViewDataSource>
@@ -46,8 +55,22 @@ static NSString * const reuseIdentifier = @"Cell";
 
 #pragma mark UICollectionViewDelegate
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    DebugLog(@"Touched Cell = [%i]", indexPath.row);
+    self.imageIndex = [NSNumber numberWithInteger:indexPath.row];
+    [self performSegueWithIdentifier:segueIdendifier sender:self];
 }
+
+#pragma mark - Segue
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([[segue identifier] isEqualToString:segueIdendifier])
+    {
+        ExtractedImageScrollViewController* vc = (ExtractedImageScrollViewController*)segue.destinationViewController;
+        vc.extractedImages = self.extractedImages;
+        vc.imageIndex = self.imageIndex;
+    }
+}
+
+
 
 #pragma mark - <UICollectionViewDelegateFlowLayout>
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
