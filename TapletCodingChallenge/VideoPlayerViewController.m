@@ -9,13 +9,20 @@
 //Header
 #import "VideoPlayerViewController.h"
 
+//VCs
+#import "ExtractedImagesCollectionViewController.h"
+
 //Other
 @import MediaPlayer;
+
+//Constants
+static NSString* segueIdendifier = @"showExtractedImages";
+
 
 @interface VideoPlayerViewController ()
 @property MPMoviePlayerController* player;
 @property UIBarButtonItem* nextButton;
-@property NSMutableArray* imagesSaved;
+@property NSMutableArray* extractedImages;
 @end
 
 @implementation VideoPlayerViewController
@@ -24,11 +31,11 @@
     [super viewDidLoad];
 
     //Set up NextButton
-    self.nextButton = [[UIBarButtonItem alloc] initWithTitle:@"Next" style:UIBarButtonItemStylePlain target:self action:@selector(showImages:)];
+    self.nextButton = [[UIBarButtonItem alloc] initWithTitle:@"Next" style:UIBarButtonItemStylePlain target:self action:@selector(showExtractedImages:)];
     self.navigationItem.rightBarButtonItem = self.nextButton;
 
     //Set up array to contain pulled images
-    self.imagesSaved = [[NSMutableArray alloc] init];
+    self.extractedImages = [[NSMutableArray alloc] init];
     
     //Listen for MPMoviePlayerThumbnailImageRequestDidFinishNotification
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(observer_MPMoviePlayerThumbnailImageRequestDidFinishNotification:) name:MPMoviePlayerThumbnailImageRequestDidFinishNotification object:nil];
@@ -46,6 +53,7 @@
     [self.player play];
 }
 
+//This handles rotations
 - (void)viewWillTransitionToSize:(CGSize)size
        withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
     DebugLogWhereAmI();
@@ -64,14 +72,27 @@
 
 
 #pragma mark - Button Callbacks
-- (void) showImages:(id) sender {
-    if ([self.imagesSaved count] == 0) {
+- (void) showExtractedImages:(id) sender {
+    if ([self.extractedImages count] == 0) {
         UIAlertView* av = [[UIAlertView alloc] initWithTitle:@"No Images Selected" message:@"Tap the screen to select some images!" delegate:nil cancelButtonTitle:@"Ok!" otherButtonTitles:nil];
         [av show];
+        return;
+    }
+    
+    [self performSegueWithIdentifier:segueIdendifier sender:self];
+}
+
+#pragma mark - Segue
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([[segue identifier] isEqualToString:segueIdendifier])
+    {
+        ExtractedImagesCollectionViewController* vc = (ExtractedImagesCollectionViewController*)segue.destinationViewController;
+        vc.extractedImages = self.extractedImages;
     }
 }
 
-
+#pragma mark - Touches
 - (void) touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
     //Request a thumbnail
     NSNumber* currentPlayTime = [NSNumber numberWithDouble:self.player.currentPlaybackTime];
@@ -91,8 +112,8 @@
     //Queue up addObject calls to imagesSaved since it's not thread safe
     dispatch_async(dispatch_get_main_queue(), ^(void){
         DebugLogWhereAmI();
-        [self.imagesSaved addObject:img];
-        self.nextButton.title = [NSString stringWithFormat:@"Next (%i)", self.imagesSaved.count];
+        [self.extractedImages addObject:img];
+        self.nextButton.title = [NSString stringWithFormat:@"Next (%i)", self.extractedImages.count];
         
         [UIView animateWithDuration:2.0 animations:^{
             self.nextButton.tintColor = [UIColor blueColor];

@@ -14,8 +14,8 @@
 #import "VideoPlayerViewController.h"
 
 //Constants
-NSString* cellIdentifier = @"Cell";
-NSString* segueIdendifier = @"showVideo";
+static NSString* cellIdentifier = @"Cell";
+static NSString* segueIdendifier = @"showVideo";
 
 
 @interface VideoPickerCollectionViewController ()
@@ -161,7 +161,6 @@ NSString* segueIdendifier = @"showVideo";
 #pragma mark - Segue
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    // Make sure your segue name in storyboard is the same as this line
     if ([[segue identifier] isEqualToString:segueIdendifier])
     {
         VideoPlayerViewController* vc = (VideoPlayerViewController*)segue.destinationViewController;
