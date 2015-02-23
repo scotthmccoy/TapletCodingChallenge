@@ -192,12 +192,12 @@ static NSString* segueIdendifier = @"showVideo";
 #pragma mark - UIAlertViewDelegate methods
 // Called when a button is clicked. The view will be automatically dismissed after this call returns
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    DebugLog(@"ButtonIndex: [%i]", buttonIndex);
+    DebugLog(@"ButtonIndex: [%i]", (int)buttonIndex);
     
     if (buttonIndex != 1)
         return;
     
-    //TODO: open the Settings App
+    //Open the Settings App
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
 }
 
